@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lot's Profile</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .profile-container {
+            max-width: 400px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            padding: 32px 24px;
+            text-align: center;
+        }
+        .profile-pic {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid #b2d8d8;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 24px;
+            color: #2e5c5c;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            color: #ff7e67;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <img src="lot.jpg" alt="Benito Lot Jr O. Reyes" class="profile-pic">
+        <h2>Benito Lot Jr O. Reyes</h2>
+        <p>      <p><strong>Birthday:</strong> September 22, 1993</p>
+        <p><strong>Age:</strong> 31</p>
+            Lot is a shy person, but loves skating.<br>
+            He can be hyper too, especially when he's with people he feels comfortable with.<br>
+            He also loves matcha!
+        </p>
+        <a href="index.html" class="back-link">&larr; Back to Home</a>
+    </div>
+    <script>
+document.querySelectorAll('a').forEach(link => {
+    // Only animate for internal links (not #, javascript:, or target="_blank")
+    link.addEventListener('click', function(e) {
+        const href = link.getAttribute('href');
+        if (
+            href &&
+            !href.startsWith('#') &&
+            !href.startsWith('javascript:') &&
+            !link.hasAttribute('target')
+        ) {
+            e.preventDefault();
+            document.body.classList.add('fade-out');
+            setTimeout(() => {
+                window.location = href;
+            }, 500); // Match the CSS transition duration
+        }
+    });
+});
+</script>
+</body>
+</html>

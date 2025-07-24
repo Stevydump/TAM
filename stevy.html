@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stevy's Profile</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .profile-container {
+            max-width: 400px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            padding: 32px 24px;
+            text-align: center;
+        }
+        .profile-pic {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid #b2d8d8;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 24px;
+            color: #2e5c5c;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            color: #ff7e67;
+        }
+        /* Add fade-out transition */
+        body.fade-out {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <img src="stevy.jpg" alt="Stevy John D Buen" class="profile-pic">
+        <h2>Stevy John D Buen</h2>
+        <p><strong>Birthday:</strong> March 2, 2007</p>
+        <p><strong>Age:</strong> 18</p>
+        <p>
+            Stevy is fun, hyper, and full of energy!<br>
+            He loves arts and music, always bringing creativity and joy to everyone around him.
+        </p>
+        <a href="index.html" class="back-link">&larr; Back to Home</a>
+    </div>
+
+    <script>
+    document.querySelectorAll('a').forEach(link => {
+        // Only animate for internal links (not #, javascript:, or target="_blank")
+        link.addEventListener('click', function(e) {
+            const href = link.getAttribute('href');
+            if (
+                href &&
+                !href.startsWith('#') &&
+                !href.startsWith('javascript:') &&
+                !link.hasAttribute('target')
+            ) {
+                e.preventDefault();
+                document.body.classList.add('fade-out');
+                setTimeout(() => {
+                    window.location = href;
+                }, 500); // Match the CSS transition duration
+            }
+        });
+    });
+    </script>
+</body>
+</html>

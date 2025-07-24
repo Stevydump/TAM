@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memories of Us</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Memories of Us</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="memories.html">Memories</a>
+            <a href="about.html">About</a>
+            <a href="calendar.html" class="calendar-link">Calendar</a>
+             <a href="tam.html" class="tam-link">TAM</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Our Special Moments</h2>
+        <form id="memoryForm">
+            <div class="memory-upload">
+                <label class="custom-file-label">
+                    <span>📸 Choose File</span>
+                    <input type="file" class="custom-file-input" id="photoInput" accept="image/*" required />
+                </label>
+                <button class="custom-btn add-memory-btn" type="submit">Add Memory</button>
+            </div>
+            <input type="text" id="descInput" placeholder="Description" required>
+        </form>
+        <ul id="memoriesList"></ul>
+    </main>
+    <script>
+        // Load memories from localStorage
+        function loadMemories() {
+            const memories = JSON.parse(localStorage.getItem('memories') || '[]');
+            const list = document.getElementById('memoriesList');
+            list.innerHTML = '';
+            memories.forEach((mem, idx) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <img src="${mem.img}" width="300">
+                    <p>${mem.desc}</p>
+                    <button onclick="deleteMemory(${idx})">Delete</button>
+                `;
+                list.appendChild(li);
+            });
+        }
+
+        // Delete memory by index
+        function deleteMemory(index) {
+            const memories = JSON.parse(localStorage.getItem('memories') || '[]');
+            memories.splice(index, 1);
+            localStorage.setItem('memories', JSON.stringify(memories));
+            loadMemories();
+        }
+
+        // Handle form submit
+        document.getElementById('memoryForm').onsubmit = function(e) {
+            e.preventDefault();
+            const file = document.getElementById('photoInput').files[0];
+            const desc = document.getElementById('descInput').value;
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                const img = evt.target.result;
+                const memories = JSON.parse(localStorage.getItem('memories') || '[]');
+                memories.push({ img, desc });
+                localStorage.setItem('memories', JSON.stringify(memories));
+                loadMemories();
+                document.getElementById('memoryForm').reset();
+            };
+            reader.readAsDataURL(file);
+        };
+
+        // Initial load
+        loadMemories();
+    </script>
+    <script>
+document.querySelectorAll('a').forEach(link => {
+    // Only animate for internal links (not #, javascript:, or target="_blank")
+    link.addEventListener('click', function(e) {
+        const href = link.getAttribute('href');
+        if (
+            href &&
+            !href.startsWith('#') &&
+            !href.startsWith('javascript:') &&
+            !link.hasAttribute('target')
+        ) {
+            e.preventDefault();
+            document.body.classList.add('fade-out');
+            setTimeout(() => {
+                window.location = href;
+            }, 500); // Match the CSS transition duration
+        }
+    });
+});
+</script>
+</body>
+</html>

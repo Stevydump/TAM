@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAM - Tadhana at Mundo</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .fade-slide-in {
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeSlideIn 1s ease-out forwards;
+        }
+        @keyframes fadeSlideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .move-right {
+            animation: moveRight 0.8s ease forwards;
+        }
+        @keyframes moveRight {
+            to {
+                transform: translateX(180px);
+                text-align: right;
+            }
+        }
+        .move-right-fade {
+            animation: moveRightFade 0.8s ease forwards;
+        }
+        @keyframes moveRightFade {
+            to {
+                opacity: 0;
+                transform: translateX(180px);
+                text-align: right;
+            }
+        }
+        .desc-pop {
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+        .desc-pop-active {
+            opacity: 1 !important;
+            transform: translateY(0) scale(1) !important;
+        }
+        .tam-desc {
+            max-width: 420px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            padding: 24px 20px;
+            color: #2e5c5c;
+            font-size: 1.1em;
+            margin-left: 40px;
+        }
+        @media (max-width: 700px) {
+            main {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                height: auto !important;
+                padding: 40px 0;
+            }
+            .tam-desc {
+                margin-left: 0;
+                margin-top: 24px;
+            }
+        }
+        @keyframes flyPlane {
+            0% {
+                left: 0;
+                top: 60%;
+                opacity: 0;
+                transform: rotate(-10deg) scale(0.8);
+            }
+            10% {
+                opacity: 1;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                left: 85%;
+                top: 10%;
+                opacity: 0;
+                transform: rotate(15deg) scale(1.1);
+            }
+        }
+        #paperPlane.fly {
+            display: block !important;
+            animation: flyPlane 1.4s cubic-bezier(.4,1.4,.7,1) forwards;
+        }
+    </style>
+</head>
+<body>
+    <main style="display:flex;justify-content:center;align-items:center;height:80vh;position:relative;">
+        <h1 id="tamTitle" class="fade-slide-in" style="color:#2e5c5c;font-size:2.5em;text-align:center;min-width:320px;">
+            TADHANA AT MUNDO
+        </h1>
+        <!-- Paper plane SVG, hidden by default -->
+        <svg id="paperPlane" viewBox="0 0 64 64" width="60" height="60" style="position:absolute;left:0;top:60%;display:none;z-index:20;">
+            <polygon points="2,32 62,12 52,52 32,42 22,62" fill="#b2d8d8" stroke="#2e5c5c" stroke-width="2"/>
+            <polyline points="2,32 32,42 62,12" fill="none" stroke="#2e5c5c" stroke-width="2"/>
+        </svg>
+        <div id="tamDesc" class="tam-desc desc-pop" style="display:none;">
+            “You are meant for me — not just by fate, but because I choose you even in the messiness of the world.”<br><br>
+            It's the belief that while fate may write the beginning of the story, we write the rest. And even if the world challenges us, we find ways to stay. Because love is not just about being destined — it’s about fighting to make that destiny real.<br><br>
+            <strong>Like Stevy and Lot, they're meant to be — tadhana at mundo.</strong>
+            <br><br>
+            <a href="index.html" class="back-link" style="display:inline-block;margin-top:24px;color:#2e5c5c;text-decoration:none;font-weight:bold;border:2px solid #b2d8d8;padding:10px 28px;border-radius:24px;transition:background 0.2s,color 0.2s;">
+                &larr; Back to Home
+            </a>
+        </div>
+    </main>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const title = document.getElementById('tamTitle');
+            const desc = document.getElementById('tamDesc');
+            const plane = document.getElementById('paperPlane');
+            title.addEventListener('animationend', () => {
+                title.classList.add('move-right-fade');
+                setTimeout(() => {
+                    title.style.display = 'none';
+                    // Show and animate the paper plane
+                    plane.classList.add('fly');
+                    // Show the description after a short delay for the plane
+                    setTimeout(() => {
+                        desc.style.display = 'block';
+                        desc.classList.add('desc-pop-active');
+                    }, 700); // Show desc as plane is flying
+                    // Hide the plane after animation
+                    setTimeout(() => {
+                        plane.classList.remove('fly');
+                        plane.style.display = 'none';
+                    }, 1500);
+                }, 800); // Wait for move-right-fade animation
+            });
+        });
+    </script>
+</body>
+</html>

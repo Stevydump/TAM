@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>About Us</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="memories.html">Memories</a>
+            <a href="about.html">About</a>
+            <a href="calendar.html" class="calendar-link">Calendar</a>
+             <a href="tam.html" class="tam-link">TAM</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Our Story</h2>
+        <p>
+            Stevy and Lot met on a dating app, never really expecting anything serious to happen. At first, it was just casual conversations and a bit of fun, but as days went by, they found themselves drawn to each other in ways they never imagined. Their personalities were different—Stevy, fun and hyper, with a love for arts and music; Lot, shy but adventurous, especially when skating or with someone he trusts. <br><br>
+            Despite their differences, they discovered a unique spark between them. They laughed together, shared their dreams, and supported each other through ups and downs. Of course, their journey wasn’t always easy. They faced misunderstandings and challenges, but what made their bond special was their willingness to forgive, to listen, and to grow together.<br><br>
+            Now, after two months, their relationship is stronger than ever. Every day is a new adventure, filled with love, laughter, and learning. They continue to build memories, cherish each moment, and look forward to many more days together.<br><br>
+            <strong>Ongoing since: May 10, 2025 &mdash; <span id="ongoing-time"></span></strong>
+        </p>
+        <script>
+            // Show how long they've been together
+            const startDate = new Date("2025-05-10T00:00:00");
+            function updateOngoingTime() {
+                const now = new Date();
+                const diff = now - startDate;
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.getElementById('ongoing-time').textContent = `${days} days`;
+            }
+            updateOngoingTime();
+            setInterval(updateOngoingTime, 60000);
+        </script>
+    </main>
+    <script>
+document.querySelectorAll('a').forEach(link => {
+    // Only animate for internal links (not #, javascript:, or target="_blank")
+    link.addEventListener('click', function(e) {
+        const href = link.getAttribute('href');
+        if (
+            href &&
+            !href.startsWith('#') &&
+            !href.startsWith('javascript:') &&
+            !link.hasAttribute('target')
+        ) {
+            e.preventDefault();
+            document.body.classList.add('fade-out');
+            setTimeout(() => {
+                window.location = href;
+            }, 500); // Match the CSS transition duration
+        }
+    });
+});
+</script>
+</body>
+</html>
